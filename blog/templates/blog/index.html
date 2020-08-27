@@ -1,0 +1,66 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+{% include "blog/nav.html" %}
+<!-- Page Header -->
+<header class="masthead" style="background-image: url( '/static/img/home-bg.jpg' )">
+  <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            {% if user.is_authenticated %}
+          
+              {% if request.user %}
+                <h1>Hey {{request.user}},</h1>  
+              {% else %}
+                <h1>Hey there,</h1>
+              {% endif %}
+
+            {% else %}    
+              <h1>Hey there,</h1>
+            {% endif %}
+            <span class="subheading">Welcome to My Blogs.. </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+        
+        {% for articles in posts %}
+          <div class="post-preview">
+            <a href="{% url 'blog_post' %}">
+              <h2 class="post-title">
+                {{ articles.title }}
+              </h2>
+            <h3 class="post-subtitle">
+              {{ articles.desctiption }}
+            </h3>
+          </a>
+          <p class="post-meta">Posted by
+            <a href="#">
+              {{ articles.author }}
+            </a>
+            on {{ articles.date }}</p>
+        </div>
+        <hr>
+      {% endfor %}
+      
+        <!-- Pager -->
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+ 
+  {% include "blog/endFooter.html" %}
+{% endblock content %}

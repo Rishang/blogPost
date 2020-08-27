@@ -1,0 +1,72 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+<title>login</title>
+{% endblock title %}
+
+{% load static %}
+
+{% block content %}
+
+{% include "login/nav.html" %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <div class="p-5">
+        <h2>Login here</h2>
+        <form name="login" id="login" method="POST">
+          {% csrf_token %}
+          {% for message in messages %}
+              <div class="alert alert-warning" role="alert">{{message}}</div>
+          {% endfor %}
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>User Name</label>
+              {#{ register.username }#}
+              <input type="text" class="form-control" placeholder="User Name" name="username" maxlength="150" required="" id="id_username" data-validation-required-message="Please enter your username.">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Password</label>
+              {#{ register.password1 }#}
+              <input type="password" class="form-control" placeholder="Password" name="password" autocomplete="new-password" required="" id="id_password1" data-validation-required-message="Please enter password heare.">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <br>
+          <div id="success"></div>
+          <button type="submit" class="btn btn-primary" id="submit">LogIn</button>
+          <p>
+            <hr>
+            Not a User ?
+            <a class="btn-link" href="{% url 'register_page' %}">SignUp</a>
+          </p>
+        </form>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+
+{% block scripts %}
+<script src="{% static 'js/jqBootstrapValidation.js' %}"></script>
+
+<script>
+  navBrand = document.getElementsByClassName('navbar-brand')
+  nav = document.getElementsByClassName("nav-link")
+  
+  navBrand[0].style.color = 'black  '
+  for (i=0; i < nav.length; i++)
+  {
+    nav[i].style.color = 'black';
+  }
+</script>
+
+{% endblock scripts %}
+
