@@ -33,21 +33,21 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
         
-        {% for articles in posts %}
+        {% for article in posts %}
           <div class="post-preview">
-            <a href="{% url 'blog_post' %}">
+            <a href="{% url 'blog_post' article.id %}">
               <h2 class="post-title">
-                {{ articles.title }}
+                {{ article.title }}
               </h2>
             <h3 class="post-subtitle">
-              {{ articles.desctiption }}
+              {{ article.description }}
             </h3>
           </a>
           <p class="post-meta">Posted by
             <a href="#">
-              {{ articles.author }}
+              {{ article.author }}
             </a>
-            on {{ articles.date }}</p>
+            on {{ article.datePosted| date:"d M Y" }}</p>
         </div>
         <hr>
       {% endfor %}

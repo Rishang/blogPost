@@ -13,7 +13,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" style='color:black' href="{% url 'blog_new' %}">New post</a>
+                </li>
+            {%endif%}
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" style='color:black' href="{% url 'logout' %}">Logout</a>
@@ -29,12 +33,9 @@
               </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" style='color:black' href="{% url 'blog_post' %}">{{request.user}}</a>
+                    <a class="nav-link" style='color:black' href="{% url 'blog_home' %}">{{request.user}}</a>
                 </li>
-            {% else %}
-              <li class="nav-item">
-                  <a class="nav-link" style='color:black' href="{% url 'blog_post' %}">Sample Post</a>
-              </li>
+            
             {% endif %}
             
       <li class=" nav-item">
@@ -72,6 +73,11 @@
                 
                 {% if user.is_authenticated %}
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog_new' %}">New post</a>
+                    </li>
+                {%endif%}
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                     </li>
                 {% else %}
@@ -85,12 +91,8 @@
                   </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog_post' %}">{{request.user}}</a>
+                        <a class="nav-link" href="{% url 'blog_home' %}">{{request.user}}</a>
                     </li>
-                {% else %}
-                  <li class="nav-item">
-                      <a class="nav-link" href="{% url 'blog_post' %}">Sample Post</a>
-                  </li>
                 {% endif %}
                 
           <li class=" nav-item">

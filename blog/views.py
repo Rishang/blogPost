@@ -1,40 +1,83 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-# temp imports
-import datetime
+# CRUD
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView ,DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
+# reverse urls
+from django.urls import reverse_lazy
+
+# models
+from .models import Post,User
+
 # from django.http import HttpResponse
+
 
 # Create your views here.
 
-posts = [
-    {
-        "title": "My second blog",
-        "desctiption": "Ok i quit",
-        "author": "Rishang",
-        "date": datetime.date.today,
-    },
-    {
-        "title": "Man must explore, and this is exploration at its greatest",
-        "desctiption": "I am thinking about what to write",
-        "author": "Rishang",
-        "date": datetime.date.today,
-    }
-]
+# class VIEWS
 
-aboutMe = ["Hello and welcome to My Blog WebPage","I am Current learning django"]
-
-
-def home(request):
+class postList(ListView):
     
-    return render(request,'blog/index.html',{"posts":posts})
+    # queryset = Post.objects.all()
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'posts'
+    ordering = ['-datePosted']
 
+class postDetail(DetailView):
+    
+    model = Post
+    template_name = 'blog/post_form.html'
+    template_name = 'blog/post.html'
+
+class postCreateView(LoginRequiredMixin,CreateView):
+
+    model = Post
+    fields = ['title','description','content']
+    login_url = reverse_lazy('login_page')
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form) 
+
+class postUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+
+    model = Post
+    fields = ['title','description','content']
+    login_url = reverse_lazy('login_page')
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form) 
+    
+    def test_func(self):
+        post = self.get_object()
+
+        if self.request.user == post.author:
+            return True
+        else:
+             return False
+
+class postDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    
+    model = Post
+    login_url = reverse_lazy('login_page')
+    success_url = reverse_lazy('blog_home')
+
+    def test_func(self):
+        post = self.get_object()
+
+        if self.request.user == post.author:
+            return True
+        else:
+             return False
+
+# function based VIEW
 def about(request):
 
-    return render(request,'blog/about.html',{"about":aboutMe})
-
-def post(request):
-
-    return render(request,'blog/post.html')
+    return render(request,'blog/about.html')
 
 def contact(request):
     

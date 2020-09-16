@@ -1,0 +1,42 @@
+html,
+body,
+#editor {
+    margin: 0;
+    height: 100%;
+    color: #333;
+}
+
+textarea,
+#editor div {
+    display: inline-block;
+    font-size:large;
+    width: 49%;
+    height: 100%;
+    vertical-align: top;
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+
+textarea {
+    border: none;
+    box-sizing: border-box;
+    border-right: 1px solid rgb(199, 199, 199);
+    resize: none;
+    outline: none;
+    background-color: #f3f3f3;
+    font-size: 14px;
+    padding: 20px;
+}
+
+code {
+    color: #f66;
+}
+label {
+    display:block;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.8rem !important;
+}
