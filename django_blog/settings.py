@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ["127.0.0.1","192.168.2.6"]
 
 INSTALLED_APPS = [
     'blog.apps.BlogConfig', 
-    'testB.apps.TestbConfig',
     'register.apps.RegisterConfig',
     
     'django_extensions',

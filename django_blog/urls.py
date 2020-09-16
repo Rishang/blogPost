@@ -37,7 +37,6 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/',include('testB.urls')),
     path('',include('blog.urls')),
     path('account/',include('register.urls')),
     # path('account/',include('django.contrib.auth.urls')),
