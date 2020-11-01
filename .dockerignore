@@ -1,3 +1,16 @@
 # this files will be ignored by Dockerfile 
 
 selenium/*
+**tmp**
+*.code-workspace
+.*.code-workspace
+.idea/
+.mypy_cache/
+.vscode/
+**/__pycache__
+.ipynb_checkpoints/
+db.sqlite3
+**/migrations/[0-9]*.py
+# virtual env
+pipenv/
+
