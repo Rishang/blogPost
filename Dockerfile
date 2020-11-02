@@ -1,9 +1,13 @@
 FROM ubuntu:latest
-RUN apt update && apt install -y python3 python3-pip && apt clean && pip3 install -U pip && mkdir /blogproject
+ENV APP_HOME=/blogproject
 ENV PYTHONUNBUFFERED 1
-WORKDIR /blogproject
-COPY requirements.txt /blogproject
+WORKDIR ${APP_HOME}
+RUN apt update \
+    && apt install -y python3 python3-pip netcat \
+    && apt clean \
+    && pip3 install -U pip
+ADD requirements.txt .
 RUN pip3 install -r requirements.txt
-COPY . /blogproject/
+COPY . .
 EXPOSE 8000/tcp
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT [ "/blogproject/entrypoint.dev.sh" ]

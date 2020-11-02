@@ -12,3 +12,4 @@ db.sqlite3
 **/migrations/[0-9]*.py
 # virtual env
 pipenv/
+.env*
