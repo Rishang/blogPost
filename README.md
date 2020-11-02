@@ -5,7 +5,7 @@ django app for blog
 
 clone the repo ,  
 
-Do `pip install -r requirments.txt`
+Do `pip install -r requirements.txt`
 
 find manage.py file
 
