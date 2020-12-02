@@ -7,10 +7,9 @@ selenium/*
 .idea/
 .mypy_cache/
 .vscode/
-**/__pycache__
+**/__pycache__/
 .ipynb_checkpoints/
 db.sqlite3
 **/migrations/[0-9]*.py
 # virtual env
-pipenv/
-
+.pipenv/
