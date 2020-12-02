@@ -17,9 +17,14 @@ import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Declare env vars
 env = environ.Env(DEBUG=(bool, True))
-# reading .env file
-env_file = os.path.join(BASE_DIR, ".env.dev")
+
+# Reading .env file
+if os.environ.get("APP_HOME"):
+    env_file = os.path.join(BASE_DIR, ".env.dev")
+else:
+    env_file = os.path.join(BASE_DIR, ".env.local")
 environ.Env.read_env(env_file)
 
 # Quick-start development settings - unsuitable for production
@@ -90,7 +95,7 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env("POSTGRES_DB_NAME"),
+        'NAME': env("POSTGRES_DB"),
         'USER': env("POSTGRES_USER"),
         'PASSWORD': env("POSTGRES_PASSWORD"),
         'HOST': env("POSTGRES_HOSTNAME"),
