@@ -9,6 +9,15 @@ then
     done
 
     echo "PostgreSQL started"
+
+    # migrate db and django
+    echo "migrate django , postgres"
+    python3 manage.py makemigrations
+    python3 manage.py migrate
+
+    # create superuser
+    echo "creating superuser"
+    python3 manage.py shell -c "exec(open('create_admin.py','r').read())"
 fi
 
 exec "$@"
