@@ -9,8 +9,9 @@ RUN apt update \
     && curl -fsS https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
     && python3 get-pip.py \
     && pip install -U pip
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+# COPY code .
 COPY . .
+# install requirements
+RUN pip install -r requirements.txt
 EXPOSE 8000/tcp
 ENTRYPOINT [ "/blogproject/entrypoint.dev.sh" ]
