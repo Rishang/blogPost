@@ -3,7 +3,7 @@ version: '3'
 services:
   
   db:
-    image: postgres:latest
+    image: postgres:alpine
     networks: ["web"]
     env_file:
       - ./.env.dev
