@@ -33,8 +33,13 @@ def loginPage(request):
         # isUser = authenticate(request, email=email ,password=password)
 
         if isUser is not None:
+            
+            if isUser.is_staff:
+                messages.info(request, 'Staff users can\'t login from here')
+                return redirect('login_page')
             login(request, isUser)
             messages.success(request, f'{isUser} Logged in !')
+            
             return redirect('blog_home')
         else:
             messages.info(request, 'invalid username or password')
