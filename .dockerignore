@@ -1,6 +1,7 @@
 # this files will be ignored by Dockerfile 
 
 selenium/*
+.git/
 **tmp**
 *.code-workspace
 .*.code-workspace
