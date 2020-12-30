@@ -21,8 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env = environ.Env(DEBUG=(bool, True))
 
 # Reading .env file
-if os.environ.get("APP_HOME"):
+if os.environ.get("STAGE") == "TESTING":
     env_file = os.path.join(BASE_DIR, ".env.dev")
+if os.environ.get("STAGE") == "PRODUCTION":
+    env_file = os.path.join(BASE_DIR, ".env.prod")
 else:
     env_file = os.path.join(BASE_DIR, ".env.local")
 environ.Env.read_env(env_file)

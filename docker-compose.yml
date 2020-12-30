@@ -10,6 +10,9 @@ services:
   
   backend:
     build: .
+    image: blogpost_backend
+    environment:
+      - STAGE=TESTING
     networks: ["web"]
     command: python3 manage.py runserver 0.0.0.0:8000
     depends_on:
@@ -20,4 +23,5 @@ services:
       - ./.env.dev
 
 networks:
-  web:
+  blogpost_web:
+    external: true
