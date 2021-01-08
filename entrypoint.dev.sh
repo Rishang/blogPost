@@ -17,7 +17,7 @@ then
 
     # create superuser
     echo "creating superuser"
-    python3 manage.py shell -c "exec(open('create_admin.py','r').read())"
+    python3 manage.py shell -c "exec(open('./django_blog/create_admin.py','r').read())"
 fi
 
 exec "$@"

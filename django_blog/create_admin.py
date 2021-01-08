@@ -7,6 +7,7 @@
 import os
 import environ
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 env_file_name='.env.dev'
 
@@ -26,5 +27,5 @@ else:
 try:
     User.objects.get(username=admin_username)
 
-except User.DoesNotExist:
+except ObjectDoesNotExist:
     User.objects.create_superuser(admin_username, email=admin_email, password=admin_password)
