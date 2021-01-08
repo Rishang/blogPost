@@ -4,7 +4,7 @@ services:
   
   db:
     image: postgres:alpine
-    networks: ["web"]
+    networks: ["blogpost_web"]
     env_file:
       - ./.env.dev
   
@@ -13,7 +13,7 @@ services:
     image: blogpost_backend
     environment:
       - STAGE=TESTING
-    networks: ["web"]
+    networks: ["blogpost_web"]
     command: python3 manage.py runserver 0.0.0.0:8000
     depends_on:
       - db
