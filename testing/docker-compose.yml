@@ -1,0 +1,26 @@
+version: '3'
+
+services: 
+
+  chrome_browser:
+    image: selenium/standalone-chrome:4.0.0-beta-1-prerelease-20201208
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    networks: ["blogpost_web"]
+    volumes: 
+      - /dev/shm:/dev/shm
+    ports: 
+      -  4442-4444:4442-4444
+  
+  # test_scripts:
+  #   build: .
+  #   networks: ["blogpost_web"]
+  #   depends_on: 
+  #     - browser
+  #   command: python3 main.py
+
+networks: 
+  blogpost_web:
+    external: true

@@ -1,5 +1,4 @@
 tmp/
-selenium/*
 **tmp**
 *.code-workspace
 .*.code-workspace
