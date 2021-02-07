@@ -36,7 +36,7 @@ environ.Env.read_env(env_file)
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DJANGO_DEBUG_MODE")
 
 ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOST").split(',')
 
@@ -101,7 +101,7 @@ DATABASES = {
         'USER': env("POSTGRES_USER"),
         'PASSWORD': env("POSTGRES_PASSWORD"),
         'HOST': env("POSTGRES_HOSTNAME"),
-        'PORT': 5432,
+        'PORT': env.int("DATABASE_PORT"),
     }
 }
 
