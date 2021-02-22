@@ -23,6 +23,10 @@ then
   done
 
   echo "PostgreSQL started"
+  # migrate db and django
+  echo "migrate django , postgres"
+  python3 manage.py makemigrations --noinput
+  python3 manage.py migrate --noinput
 
   _django_config
    
