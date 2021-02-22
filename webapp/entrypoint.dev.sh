@@ -12,8 +12,8 @@ then
 
     # migrate db and django
     echo "migrate django , postgres"
-    python3 manage.py makemigrations
-    python3 manage.py migrate
+    python3 manage.py makemigrations --noinput
+    python3 manage.py migrate --noinput
 
     # create superuser
     echo "creating superuser"

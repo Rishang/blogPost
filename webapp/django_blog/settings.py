@@ -18,7 +18,7 @@ import environ
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Declare env vars
-env = environ.Env(DEBUG=(bool, True))
+env = environ.Env(DJANGO_DEBUG_MODE=(bool, True))
 
 # Reading .env file
 if os.environ.get("STAGE") == "TESTING":
@@ -36,7 +36,7 @@ environ.Env.read_env(env_file)
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DJANGO_DEBUG_MODE")
 
 ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOST").split(',')
 
@@ -93,18 +93,24 @@ WSGI_APPLICATION = 'django_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR + '/' + 'db.sqlite3',
+    },
+}
 
-        'ENGINE': 'django.db.backends.postgresql',
+try:
+    postgres = {
+        'ENGINE': env("DATABASE_ENGINE"),
         'NAME': env("POSTGRES_DB"),
         'USER': env("POSTGRES_USER"),
         'PASSWORD': env("POSTGRES_PASSWORD"),
         'HOST': env("POSTGRES_HOSTNAME"),
-        'PORT': 5432,
+        'PORT': env.int("DATABASE_PORT"),
     }
-}
+    DATABASES["default"] = postgres
 
+except:
+    print(f"INFO: Using \"default\" Database, Postgres-SQL not configed in {env_file}.")
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
