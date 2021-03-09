@@ -1,7 +1,6 @@
 FROM ubuntu:latest
 ENV APP_HOME=/blogproject
 ENV PYTHONUNBUFFERED 1
-WORKDIR ${APP_HOME}
 RUN apt update \
     && apt install -y python3-minimal \
                 python3-distutils \
@@ -9,6 +8,7 @@ RUN apt update \
     && curl -fsS https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
     && python3 get-pip.py \
     && pip install -U pip
+WORKDIR ${APP_HOME}
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
