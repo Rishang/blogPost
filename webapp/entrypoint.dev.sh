@@ -4,8 +4,9 @@ function _django_config {
   
  # migrate db and django
   echo "migrate django , postgres"
-  python3 manage.py makemigrations
-  python3 manage.py migrate
+  python3 manage.py makemigrations --noinput
+  python3 manage.py migrate --noinput
+  python3 manage.py collectstatic --noinput
 
   # create superuser
   echo "creating superuser"
@@ -25,9 +26,6 @@ then
   echo "PostgreSQL started"
   # migrate db and django
   echo "migrate django , postgres"
-  python3 manage.py makemigrations --noinput
-  python3 manage.py migrate --noinput
-
   _django_config
    
 fi
