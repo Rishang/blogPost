@@ -40,3 +40,8 @@ img {
     height: auto;
     border-radius: 0.8rem !important;
 }
+
+.img-gradient {
+    background-color: #f66;
+    background-image: linear-gradient(toright, #f66, rgb(55, 187, 169));
+}

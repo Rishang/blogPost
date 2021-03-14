@@ -15,4 +15,5 @@ selenium/*
 *.md
 # virtual env
 .pipenv/
+media
 assets

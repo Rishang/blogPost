@@ -6,11 +6,12 @@ from django.urls import reverse
 # Create your models here.
 class Post(models.Model):
 
-    title = models.CharField(max_length=500)
-    description = models.TextField(blank=True)
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True, max_length=300)
     content = models.TextField(blank=True)
     datePosted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(null=True, blank=True, upload_to='post_images')
 
     def __str__(self):
         return f'{self.title} | {self.author} | {self.datePosted}'

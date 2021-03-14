@@ -7,12 +7,10 @@ tmp/
 .vscode/
 __pycache__/
 .ipynb_checkpoints/
-db.sqlite3
-.env.*
+*.sqlite3
 **/migrations/[0-9]*.py
 # virtual env
 .pipenv/
 .env*
-
-# static files
 assets
+media

@@ -1,6 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load static %}
-{% load tag_tweak %}
+{% load widget_tweaks %}
 
 {% block scriptsrc %}
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
@@ -10,79 +10,100 @@
 
 {% block style %}
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+<link rel="stylesheet" href="{% static 'css/editor.css' %}">
 {% endblock style %}
 
 
 {% block content %}
 
 {% include "blog/nav.html" %}
-<!-- <header class="masthead" style="background-image: url( https://images.unsplash.com/photo-1527352675495-d54e8f102689?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80 )"> -->
 <div class="container-fluid">
   <br><br><br>
-  <form action="" method="post">
+  <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-group floating-label-form-group controls">
-      <label for="id_title" value='title'>Title</label>
-      {% render_field form.title placeholder="Title" class="form-control" maxlength="500"  %}
+    <b> Image:</b>
+    {% render_field form.image placeholder="Image" class="form-control" %}
     </div>
     <br>
     <div class="form-group floating-label-form-group controls">
-      <label>Description</label>
+      <p><b>Title:</b></p>
+      {% render_field form.title placeholder="Title" class="form-control" maxlength="500" %}
+    </div>
+    <br>
+    <div class="form-group floating-label-form-group controls">
+      <p><b>Description:</b></p>
       {% render_field form.description placeholder="Description" class="form-control" cols="30" rows="5" %}
     </div>
     <br>
     <div class="form-group floating-label-form-group controls">
       <div id="editor">
-        <label>Content:</label>
-        {{form.content | attr:"style:font-family: 'Crimson Text', serif;border-right: 1px solid #c7c7c7"| attr:"placeholder:Content"| attr:"@input:update" | attr:"v-html::compiledMarkdown"| attr:"rows:100%"}}
-        <div v-html="compiledMarkdown"></div>
+        <p><b>Content:</b></p>
+        <button id="hide" class="btn btn-primary m-1" type="button" value="Hide">Hide Output</button>
+        <button id="show" class="btn btn-primary m-1" type="button" value="Show">Show Output</button>
+        <br>
+        <br>
+        {{ form.content | attr:"placeholder:Markdown Content" | attr:"rows:100%" | attr:"@input:update" | attr:"style:font-family: 'Crimson Text', serif;border-right: 1px solid #c7c7c7" | attr:"v-html::compiledMarkdown"}}
+        <div id="content-output" v-html="compiledMarkdown"></div>
+        </div>
       </div>
       <br>
     </div>
     <br>
-    <input class="btn btn-primary" type="submit" value="submit">
+    <input class="btn btn-primary m-3" type="submit" value="submit">
   </form>
-  
-  <div id="editor">
-  </div>
-  <br><br>
 </div>
-{# <a href="{% url 'about-us' %}">About Us</a> #}
-
+<div class="p-5 m-2"></div>
 {% endblock content %}
 
 {% block scripts %}
 
 <script>
-    new Vue({
-      el: "#editor",
-      data: {
-        input: "> Markdown output will get shown here"
-      },
-      computed: {
-        compiledMarkdown: function() {
-          return marked(this.input, { sanitize: true });
-        }
-      },
-      methods: {
-        update: _.debounce(function(e) {
-          this.input = e.target.value;
-        }, 100)
+  // live markdown output
+  new Vue({
+    el: "#editor",
+    data: {
+      input: "> Markdown output will get shown here"
+    },
+    computed: {
+      compiledMarkdown: function() {
+        return marked(this.input, { sanitize: true });
       }
+    },
+    methods: {
+      update: _.debounce(function(e) {
+        this.input = e.target.value;
+      }, 100)
+    }
+  });
+</script>
+
+<script>
+  // change nav bar color
+  navLink = document.getElementsByClassName('nav-link');
+  navBrand = document.getElementsByClassName('navbar-brand');
+  for (i=0; i < navLink.length; i++){
+    navLink[i].style.color = 'black'
+  }
+  for (i=0; i < navBrand.length; i++){
+    navBrand[i].style.color = 'black'
+  }
+
+  document.getElementById('mainNav').style.backgroundColor = 'rgba(255,250,250,0.2)'
+</script>
+
+<script>
+  // (show / hide) markdown output
+  $(document).ready(function(){
+    $("#hide").click(function(){
+      $("#content-output").hide();
+      $("#id_content").css({"width":"100%","border-right":"0px"});
+    })
+    $("#show").click(function(){
+      console.log("show other")
+      $("#content-output").show();
+      $("#id_content").css({"width":"50%","border-right": "1px solid #c7c7c7"});
     });
-  </script>
-  <script>
-    navLink = document.getElementsByClassName('nav-link');
-    navBrand = document.getElementsByClassName('navbar-brand');
-    for (i=0; i < navLink.length; i++){
-      navLink[i].style.color = 'black'
-    }
-
-    for (i=0; i < navBrand.length; i++){
-      navBrand[i].style.color = 'black'
-    }
-
-    document.getElementById('mainNav').style.backgroundColor = 'rgba(255,250,250,0.2)'
-  </script>
+  });
+</script>
 {% endblock scripts %}

@@ -21,7 +21,7 @@
             {% else %}    
               <h1>Hey there,</h1>
             {% endif %}
-            <span class="subheading">Welcome to My Blogs.. </span>
+            <span class="subheading">Welcome to your Blogs.. </span>
           </div>
         </div>
       </div>
@@ -39,12 +39,12 @@
               <h2 class="post-title">
                 {{ article.title }}
               </h2>
-            <h3 class="post-subtitle">
+            <h5 class="post-subtitle">
               {{ article.description }}
-            </h3>
+            </h5>
           </a>
           <p class="post-meta">Posted by
-            <a href="#">
+            <a href="{% url 'user_profile' article.author %}">
               {{ article.author }}
             </a>
             on {{ article.datePosted| date:"d M Y" }}</p>
@@ -61,6 +61,4 @@
   </div>
 
   <hr>
- 
-  {% include "blog/endFooter.html" %}
 {% endblock content %}

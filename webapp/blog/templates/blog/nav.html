@@ -26,14 +26,14 @@
                 <li class="nav-item">
                     <a class="nav-link" style='color:black' href="{% url 'register_page' %}">SignIn / Register</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" style='color:black' href="{% url 'about_us' %}">About</a>
+                </li>
             {% endif %}
 
-              <li class="nav-item">
-                  <a class="nav-link" style='color:black' href="{% url 'about_us' %}">About</a>
-              </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" style='color:black' href="{% url 'blog_home' %}">{{request.user}}</a>
+                    <a class="nav-link" style='color:black' href="{% url 'user_profile' request.user %}">{{request.user}}</a>
                 </li>
             {% endif %}
           </ul>
@@ -45,7 +45,11 @@
     <div>
         <div class="container-fluid">
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}" role="alert">{{message}}</div>
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{message}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>
             {% endfor %}
             <hr>
         </div>
@@ -79,14 +83,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'register_page' %}">SignIn / Register</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about_us' %}">About</a>
+                    </li>
                 {% endif %}
 
-                  <li class="nav-item">
-                      <a class="nav-link" href="{% url 'about_us' %}">About</a>
-                  </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog_home' %}">{{request.user}}</a>
+                        <a class="nav-link" href="{% url 'user_profile' request.user %}">{{request.user}}</a>
                     </li>
                 {% endif %}
               </ul>
