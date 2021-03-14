@@ -30,7 +30,7 @@
                   >
                 {% endthumbnail %}
               {% else %}
-              <img src="/media/default.jpg" alt="{{ slugUser.profile.user.username }} profile image"
+              <img src="{% static '/img/default-user-image.jpg' %}" alt="{{ slugUser.profile.user.username }} profile image"
               height="10" class="rcorners-profile-dp align-content-md-center img-thumbnail">
               {% endif %}
               {% if user.is_authenticated and slugUser.profile == user.profile %}
