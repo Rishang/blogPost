@@ -1,7 +1,9 @@
 django
 django_extensions
-# jinja
 markdown
-#psycopg2
 psycopg2-binary
 django-environ
+pillow
+django-widget-tweaks
+sorl-thumbnail
+bleach

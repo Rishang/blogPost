@@ -1,0 +1,156 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% load widget_tweaks %}
+
+{% block scriptsrc %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqBootstrapValidation/1.3.7/jqBootstrapValidation.min.js" crossorigin="anonymous"></script>
+{% endblock scriptsrc %}
+
+{% block content %}
+
+{% include "blog/nav.html" %}
+<!-- <header class="masthead" style="background-image: url( https://images.unsplash.com/photo-1527352675495-d54e8f102689?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80 )"> -->
+<header class="masthead" style="background-image: url( https://images.unsplash.com/photo-1542395975-1913c2900823?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1534&q=80 )">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="page-heading">
+          <h1>Update Profile ,</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <div class="p-5">
+      {% if register.errors %}
+        <div>
+          <div class="container-fluid">
+            {% for field in register %}
+              {% for error in field.errors %}
+                  <div class="alert alert-info">
+                      <strong>{{ error|escape }}</strong>
+                  </div>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+              </div>
+            {% endfor %}
+            <hr>
+          </div>
+          <br>
+        </div> 
+      {% endif %}
+
+        <form name="sentMessage" id="regForm" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="control-group">
+            <b>Profile Image:</b>
+            <br>
+            {% render_field profile_form.image placeholder="Profile Image" class="mb-3" style="font-size: small;" %}
+          </div>
+          <hr>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <b>First Name</b>
+              {% render_field user_form.first_name placeholder="First Name" class="form-control" maxlength="200" %}
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+                <b>Last Name</b>
+              {% render_field user_form.last_name placeholder="Last Name" class="form-control" maxlength="200" %}
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <b>User Name</b>
+              {% render_field user_form.username placeholder="Username" class="form-control" maxlength="200" %}
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <b>Email Address</b>
+              {% render_field user_form.email placeholder="email" class="form-control" maxlength="200" %}
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <!-- <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Password</label>
+              {#{ register.password1 }#}
+              <input type="password" class="form-control" placeholder="Password" name="password1" autocomplete="new-password" required="" id="id_password1" data-validation-required-message="Please enter password heare.">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div> -->
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <b>About me</b>
+              {% render_field profile_form.about placeholder="Bio" class="form-control" maxlength="200" %}
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <b>Instagram Link</b>
+              {% render_field profile_form.social_insta placeholder="Instagram Link" class="form-control" maxlength="200" %}
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <b>Facebook Link</b>
+              {% render_field profile_form.social_facebook placeholder="Facebook Link" class="form-control" maxlength="200" %}
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <b>Twitter Link</b>
+              {% render_field profile_form.social_twitter placeholder="Twitter Link" class="form-control" maxlength="200" %}
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+
+          <br>
+        {#{profile_form}#}
+          <div id="success"></div>
+          <a href="{% url 'user_profile' user.username %}" class="btn btn-link">Back</a>
+          <button type="submit" class="btn btn-primary" id="submit">Done</button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+  navBrand = document.getElementsByClassName('navbar-brand')
+  navBrand[0].style.color = 'light  '
+
+  nav = document.getElementsByClassName("nav-link")
+  for (i=0; i < nav.length; i++)
+  {
+    if (nav[i].innerHTML == 'SignIn / Register')
+    {
+      nav[i].innerHTML = 'login';
+      nav[i].href = "{% url 'login_page' %}"
+    }
+    nav[i].style.color = 'light';
+  }
+</script>
+
+{% endblock scripts %}

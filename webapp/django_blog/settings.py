@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'register.apps.RegisterConfig',
     
     'django_extensions',
+    'widget_tweaks',
+    'sorl.thumbnail',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -148,8 +150,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = BASE_DIR + '/assets/'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "assets")
 
+MEDIA_ROOT = BASE_DIR + '/media/'
+MEDIA_URL = '/media/'
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+THUMBNAIL_PREFIX = 'compressed_images/'
 # SESSION_COOKIE_HTTPONLY = False

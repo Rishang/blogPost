@@ -1,16 +1,23 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 {% load markdown_extra %}
+{% load thumbnail %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+<link rel="stylesheet" href="{% static 'css/editor.css' %}">
 {% endblock style %}
 
 {% block content %}
 {% include "blog/nav.html" %}
 <!-- Page Header -->
   <!-- <header class="masthead" style="background-image: url( {% static 'img/post-bg.jpg' %} )"> -->
-    <header class="masthead" style="background-image: url(https://images.unsplash.com/photo-1595132169434-097c5ae1a145?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=200)">
+    {% if object.image %}
+    {% thumbnail object.image "980x540" as bg %}
+      <header class="masthead" style="background-image: url('{{bg.url}}')">
+    {% endthumbnail %}
+    {% else %}
+      <header class="masthead">
+    {% endif %}
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
@@ -21,12 +28,14 @@
               <h1>{{object.title}}</h1>
               <hr>
               <!-- Sub Heading -->
-              <h2 class="subheading">{{object.description}}</h2>
+              <h3 class="subheading">{{object.description}}</h2>
               
               <!-- Posted by -->
               <span class="meta">Posted by
-                <a href="#">{{object.author}}</a>
-                on , {{object.datePosted | date:"d M Y"}}
+                <a href="{% url 'user_profile' object.author %}">
+                  <u>{{object.author}}</u>
+                </a>
+                , {{object.datePosted | date:"d M Y"}}
                 {% if object.author == user %}
                   | <a style="color:#cffcfc" href="{% url 'blog_edit' object.id %}">Edit</a>
                   | <a style="color:#f66f6f" href="{% url 'blog_delete' object.id %}">Delete</a>
@@ -51,5 +60,7 @@
 
 <hr>
 
+{% include "blog/recentPostFooter.html" %}
 {% include "blog/endFooter.html" %}
+
 {% endblock content %}

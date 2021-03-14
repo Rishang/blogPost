@@ -5,6 +5,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView ,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from register.models import Profile
 
 # reverse urls
 from django.urls import reverse_lazy
@@ -33,10 +34,18 @@ class postDetail(DetailView):
     template_name = 'blog/post_form.html'
     template_name = 'blog/post.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        _id = self.kwargs ['pk']
+
+        post_instance = Post.objects.get(id=_id)
+        context["user_post"] = Post.objects.filter(author=post_instance.author.id).exclude(pk=_id)
+        return context
+
 class postCreateView(LoginRequiredMixin,CreateView):
 
     model = Post
-    fields = ['title','description','content']
+    fields = ['image','title','description','content']
     login_url = reverse_lazy('login_page')
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -45,7 +54,7 @@ class postCreateView(LoginRequiredMixin,CreateView):
 class postUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     model = Post
-    fields = ['title','description','content']
+    fields = ['image','title','description','content']
     login_url = reverse_lazy('login_page')
     
     def form_valid(self, form):

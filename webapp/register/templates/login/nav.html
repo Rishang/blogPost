@@ -23,14 +23,14 @@
               <li class="nav-item">
                   <a class="nav-link" href="{% url 'register_page' %}">SignIn / Register</a>
               </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'about_us' %}">About</a>
+              </li>
           {% endif %}
 
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'about_us' %}">About</a>
-            </li>
           {% if user.is_authenticated %}
-          <li class="nav-item">
-              <a class="nav-link" href="{% url 'blog_new' %}">{{request.user}}</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user_profile' request.user %}">{{request.user}}</a>
             </li>
             {% else %}
           {% endif %}
