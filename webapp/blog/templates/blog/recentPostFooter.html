@@ -1,29 +1,31 @@
-<!-- Footer -->
-<div class="container rounded" style="background-color: rgba(251, 243, 252, 0.5);">
-<footer class=" p-2 mb-2">
-    <div class="d-flex align-items-center justify-content-between mb-0">
-      <h5 class="mb-0">Other posts by: 
-        <a href="{% url 'user_profile' object.author %}">
-          <u>@{{object.author}}</u>
-        </a>
-      </h5>
-      <a href="#" class="btn btn-link text-muted">Show all</a>
-    </div>
-    <div class="row">
-      <div class="p-3">
-        {% for article in user_post %}
-            <a href="{% url 'blog_post' article.id %}">
-              <h4 class="post-title">
-                {{article.title}}
-              </h4>
-            </a>
-            Posted by:
-            <a href="{% url 'user_profile' object.author %}">
-              {{object.author}}
-            </a>on {{ article.datePosted| date:"d M Y" }}</p>
-            <hr>
-        {% endfor %}
+{% if user_post %}
+  <!-- Footer -->
+  <div class="container rounded" style="background-color: rgba(251, 243, 252, 0.5);">
+  <footer class=" p-2 mb-2">
+      <div class="d-flex align-items-center justify-content-between mb-0">
+        <h5 class="mb-0">Other posts by: 
+          <a href="{% url 'user_profile' object.author %}">
+            <u>@{{object.author}}</u>
+          </a>
+        </h5>
+        <a href="#" class="btn btn-link text-muted">Show all</a>
       </div>
-    </div>
-  </footer>
-</div>
+      <div class="row">
+        <div class="p-3">
+          {% for article in user_post %}
+              <a href="{% url 'blog_post' article.id %}">
+                <h4 class="post-title">
+                  {{article.title}}
+                </h4>
+              </a>
+              Posted by:
+              <a href="{% url 'user_profile' object.author %}">
+                {{object.author}}
+              </a>on {{ article.datePosted| date:"d M Y" }}</p>
+              <hr>
+          {% endfor %}
+        </div>
+      </div>
+    </footer>
+  </div>
+{% endif %}
