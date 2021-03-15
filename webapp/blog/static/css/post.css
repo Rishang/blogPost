@@ -1,0 +1,14 @@
+span.title {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.82);
+}
+
+span.description {
+    color:  rgba(17, 17, 17, 0.72);
+    background-color: whitesmoke;
+}
+
+span.author {
+    color:  rgba(0, 0, 0, 0.82);
+    background-color: rgb(247, 217, 255);
+}

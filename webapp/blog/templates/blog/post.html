@@ -5,48 +5,62 @@
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/editor.css' %}">
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
 {% endblock style %}
 
 {% block content %}
 {% include "blog/nav.html" %}
 <!-- Page Header -->
-  <!-- <header class="masthead" style="background-image: url( {% static 'img/post-bg.jpg' %} )"> -->
-    {% if object.image %}
-    {% thumbnail object.image "980x540" as bg %}
-      <header class="masthead" style="background-image: url('{{bg.url}}')">
-    {% endthumbnail %}
-    {% else %}
-      <header class="masthead">
-    {% endif %}
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <!--start-->
-            <div class="post-heading">
-              <!-- Title -->
-              <h1>{{object.title}}</h1>
-              <hr>
-              <!-- Sub Heading -->
-              <h3 class="subheading">{{object.description}}</h2>
-              
-              <!-- Posted by -->
-              <span class="meta">Posted by
-                <a href="{% url 'user_profile' object.author %}">
-                  <u>{{object.author}}</u>
-                </a>
-                , {{object.datePosted | date:"d M Y"}}
-                {% if object.author == user %}
-                  | <a style="color:#cffcfc" href="{% url 'blog_edit' object.id %}">Edit</a>
-                  | <a style="color:#f66f6f" href="{% url 'blog_delete' object.id %}">Delete</a>
-                {% endif %}
+{% if object.image %}
+  {% thumbnail object.image "1080x540" as bg %}
+    <header class="masthead" style="background-image: url('{{bg.url}}')">
+  {% endthumbnail %}
+{% else %}
+  <header class="masthead">
+{% endif %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-auto mx-auto">
+        <!--start-->
+        <div class="post-heading">
+          <!-- Title -->
+          <h1>
+            <p>
+              <span class="title">
+                {{object.title}}
               </span>
-            </div>
-            <!--done-->
-          </div>
+            </p>
+          </h1>
+          <hr>
+          <!-- Sub Heading -->
+          <h3 class="subheading">
+            <p>
+              <span class="description">
+                {{object.description}}
+              </span>
+            </p>
+          </h3>
+          <!-- Posted by -->
+          <span class="author font-italic">Posted by
+            <a href="{% url 'user_profile' object.author %}">
+              <u>{{object.author}}</u>
+            </a>
+            , {{object.datePosted | date:"d M Y"}}
+          </span>
+          {% if object.author == user %}
+            <br>
+            <br>
+            <span>
+              <a href="{% url 'blog_edit' object.id %}" class="btn btn-info">Edit</a> ||
+              <a href="{% url 'blog_delete' object.id %}" class="btn btn-danger">Delete</a>
+            </span>
+          {% endif %}
         </div>
+        <!--done-->
       </div>
-    </header>
+    </div>
+  </div>
+</header>
 <!-- Post Content -->
 <article>
   <div class="container">
