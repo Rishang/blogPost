@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -ex
+
+pip install -r webapp/requirements.txt
+python3 webapp/manage.py collectstatic --noinput
+python3 webapp/manage.py makemigrations --noinput
+python3 webapp/manage.py migrate --noinput
