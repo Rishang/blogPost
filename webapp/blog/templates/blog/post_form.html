@@ -10,7 +10,8 @@
 
 {% block style %}
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/editor.css' %}">
+<link rel="stylesheet" href="{% static 'css/editor.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/taginput.css' %}" type="text/css">
 {% endblock style %}
 
 
@@ -55,6 +56,10 @@
       <p><b>Description:</b></p>
       {% render_field form.description placeholder="Description" class="form-control" cols="30" rows="5" %}
     </div>
+    <div class="form-group floating-label-form-group controls">
+      <p><b>Tags:</b></p>
+      {% render_field form.tags placeholder="Tags" class="form-control" data-role="tagsinput"%}
+    </div>
     <br>
     <div class="form-group floating-label-form-group controls">
       <div id="editor">
@@ -77,6 +82,9 @@
 {% endblock content %}
 
 {% block scripts %}
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-typeahead/2.11.0/jquery.typeahead.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script> 
+<script src="https://www.jqueryscript.net/demo/Bootstrap-4-Tag-Input-Plugin-jQuery/tagsinput.js"></script>
 
 <script>
   // live markdown output

@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.http import HttpResponse
 # CRUD
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -14,11 +16,28 @@ from django.urls import reverse_lazy
 from .models import Post,User
 
 # from django.http import HttpResponse
+import re
+
 
 
 # Create your views here.
 
 # class VIEWS
+
+"Validate POST request of form"
+class ValidPost:
+    def post(self, request, *args, **kwargs):
+        form_tags = re.findall('\w+',request.POST['tags'])
+        if len(form_tags) <= 15:
+            for w in form_tags:
+                if len(w) >= 15:
+                    messages.info(request,f'Too long tag, {w}')
+                    return redirect(request.path)
+            return super().post(request, *args, **kwargs)
+        else:
+            messages.info(request,f'Max tags allowed 15, you gave {len(form_tags)}')
+            return redirect(request.path)
+
 
 class postList(ListView):
     
@@ -42,21 +61,22 @@ class postDetail(DetailView):
         context["user_post"] = Post.objects.filter(author=post_instance.author.id).exclude(pk=_id)
         return context
 
-class postCreateView(LoginRequiredMixin,CreateView):
+class postCreateView(LoginRequiredMixin, ValidPost, CreateView):
 
     model = Post
-    fields = ['image','title','description','content']
-    login_url = reverse_lazy('login_page')
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form) 
-
-class postUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-
-    model = Post
-    fields = ['image','title','description','content']
+    fields = ['image','title','description','content','tags']
     login_url = reverse_lazy('login_page')
     
+    def form_valid(self, form):
+        form.instance.author = self.request.user        
+        return super().form_valid(form) 
+
+class postUpdateView(LoginRequiredMixin, UserPassesTestMixin, ValidPost, UpdateView):
+
+    model = Post
+    fields = ['image','title','description','content','tags']
+    login_url = reverse_lazy('login_page')
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form) 
@@ -68,6 +88,7 @@ class postUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         else:
              return False
+
 
 class postDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     

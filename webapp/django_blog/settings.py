@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'widget_tweaks',
     'sorl.thumbnail',
+    'taggit',
 
     'django.contrib.admin',
     'django.contrib.auth',

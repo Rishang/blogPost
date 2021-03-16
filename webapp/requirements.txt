@@ -6,4 +6,5 @@ django-environ
 pillow
 django-widget-tweaks
 sorl-thumbnail
+django-taggit
 bleach
