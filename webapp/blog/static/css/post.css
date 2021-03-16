@@ -1,14 +1,15 @@
 span.title {
     color: white;
-    background-color: rgba(0, 0, 0, 0.82);
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 1px;
 }
 
 span.description {
-    color:  rgba(17, 17, 17, 0.72);
-    background-color: whitesmoke;
+    color:  rgba(17, 17, 17, 0.85);
+    background-color: rgb(245, 245, 245, 0.7);
 }
 
 span.author {
     color:  rgba(0, 0, 0, 0.82);
-    background-color: rgb(247, 217, 255);
+    background-color: rgb(247, 217, 255, 0.6);
 }
