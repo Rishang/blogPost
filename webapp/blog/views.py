@@ -50,8 +50,8 @@ class postList(ListView):
 class postDetail(DetailView):
     
     model = Post
-    template_name = 'blog/post_form.html'
-    template_name = 'blog/post.html'
+    template_name = 'blog/post/post_form.html'
+    template_name = 'blog/post/post.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -66,7 +66,8 @@ class postCreateView(LoginRequiredMixin, ValidPost, CreateView):
     model = Post
     fields = ['image','title','description','content','tags']
     login_url = reverse_lazy('login_page')
-    
+    template_name = 'blog/post/post_form.html'
+
     def form_valid(self, form):
         form.instance.author = self.request.user        
         return super().form_valid(form) 
@@ -76,6 +77,7 @@ class postUpdateView(LoginRequiredMixin, UserPassesTestMixin, ValidPost, UpdateV
     model = Post
     fields = ['image','title','description','content','tags']
     login_url = reverse_lazy('login_page')
+    template_name = 'blog/post/post_form.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -95,6 +97,7 @@ class postDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     login_url = reverse_lazy('login_page')
     success_url = reverse_lazy('blog_home')
+    template_name = 'blog/post/post_confirm_delete.html'
 
     def test_func(self):
         post = self.get_object()
