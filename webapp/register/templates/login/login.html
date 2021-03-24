@@ -65,16 +65,13 @@
 
 {% block scripts %}
 
-<script>
-  navBrand = document.getElementsByClassName('navbar-brand')
-  nav = document.getElementsByClassName("nav-link")
-  
-  navBrand[0].style.color = 'black  '
-  for (i=0; i < nav.length; i++)
-  {
-    nav[i].style.color = 'black';
-  }
-</script>
+  <script>
+    $(document).ready(function(){
+        $(".navbar-brand, .nav-link").css({
+          "color": "black"
+        });
+    });
+  </script>
 
 {% endblock scripts %}
 
