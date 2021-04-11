@@ -8,3 +8,11 @@ django-widget-tweaks
 sorl-thumbnail
 django-taggit
 bleach
+requests
+asyncio
+aiohttp
+gunicorn
+
+boto3
+django-storages
+python-magic

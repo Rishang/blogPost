@@ -13,6 +13,7 @@ class Post(models.Model):
     datePosted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True, upload_to='post_images')
+    imageUrl = models.URLField(blank=True, max_length=400)
     tags = TaggableManager()
 
     def __str__(self):

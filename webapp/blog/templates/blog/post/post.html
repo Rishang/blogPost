@@ -16,7 +16,7 @@
   <header class="masthead" style="background-image: url('{{bg.url}}')">
   {% endthumbnail %}
 {% else %}
-  <header class="masthead">
+  <header class="masthead" style="background-image: url('{{object.imageUrl}}')">
 {% endif %}
 <div class="container">
   <div class="overlay"></div>
@@ -32,7 +32,7 @@
               </span>
             </p>
           </h1>
-          <hr>
+          <!-- <hr> -->
           <!-- Sub Heading -->
           <h3 class="subheading">
             <p>
@@ -51,7 +51,7 @@
           <hr>
           {% for tags in object.tags.all %}
             <span class="rounded bg-dark p-1 m-1" style="font-family: Lato;">
-              #{{tags}}
+              <a class='text-light'  style="text-decoration:none" href="{% url 'tag_list' tags %}">#{{tags}}</a>
             </span>
           {% endfor %}
 

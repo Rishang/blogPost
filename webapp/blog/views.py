@@ -2,6 +2,7 @@ from django.shortcuts import render, reverse, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse
+from django.core.exceptions import ValidationError
 # CRUD
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -17,17 +18,37 @@ from .models import Post,User
 
 # from django.http import HttpResponse
 import re
-
-
+import random
+import magic
+import requests
+from .unsplash import Unsplash
 
 # Create your views here.
 
 # class VIEWS
 
+class tagList(ListView):
+
+    template_name = 'blog/tag.html'
+    context_object_name = 'tag'
+    
+    def get_queryset(self):
+        
+        tag = self.kwargs['slug']
+        tag_posts = Post.objects.filter(tags__name__in=[self.kwargs['slug']])
+        related_tags = [tags.name for article in tag_posts for tags in article.tags.all()]
+        return {
+            'tag':tag,
+            'tag_posts': tag_posts,
+            'related_tags': related_tags
+        }
+
+
 "Validate POST request of form"
 class ValidPost:
     def post(self, request, *args, **kwargs):
-        form_tags = re.findall('\w+',request.POST['tags'])
+        
+        form_tags = re.findall('\w+', request.POST.get('tags'))
         if len(form_tags) <= 15:
             for w in form_tags:
                 if len(w) >= 15:
@@ -47,6 +68,7 @@ class postList(ListView):
     context_object_name = 'posts'
     ordering = ['-datePosted']
 
+
 class postDetail(DetailView):
     
     model = Post
@@ -61,26 +83,71 @@ class postDetail(DetailView):
         context["user_post"] = Post.objects.filter(author=post_instance.author.id).exclude(pk=_id)
         return context
 
+
 class postCreateView(LoginRequiredMixin, ValidPost, CreateView):
 
     model = Post
-    fields = ['image','title','description','content','tags']
+    fields = ['image','imageUrl','title','description','content','tags']
     login_url = reverse_lazy('login_page')
     template_name = 'blog/post/post_form.html'
 
     def form_valid(self, form):
-        form.instance.author = self.request.user        
+
+        # set form author
+        form.instance.author = self.request.user
+
+        # do only if no image is uploaded in article post
+        imageUrl = self.request.POST.get('imageUrl') or None
+        image = self.request.POST.get('image') or None
+        if imageUrl != '':
+            url_data = requests.get(imageUrl)
+            data_type = magic.from_buffer(url_data.content, mime=True)
+            if data_type == 'image/jpeg':
+                pass
+            else:
+                raise ValidationError("invalid image url")
+        elif  image == '':
+
+            d = Unsplash()
+
+            # collect all tags
+            form_tags = re.findall('\w+', self.request.POST['tags'])
+
+            # search for images related to tags
+            # and get random image instance
+            q = d.query(search=form_tags, random_img=True)
+
+            if len(q) != 0:
+                # get image instance url, of regular size
+                form.instance.imageUrl = q['urls']['regular']
+            else:
+                # get any random unsplash image url
+                form.instance.imageUrl = d.any['urls']['regular']
+
         return super().form_valid(form) 
+
 
 class postUpdateView(LoginRequiredMixin, UserPassesTestMixin, ValidPost, UpdateView):
 
     model = Post
-    fields = ['image','title','description','content','tags']
+    fields = ['image','imageUrl','title','description','content','tags']
     login_url = reverse_lazy('login_page')
     template_name = 'blog/post/post_form.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+
+         # do only if no image is uploaded in article post
+        imageUrl = self.request.POST.get('imageUrl') or None
+        if imageUrl != '':
+            url_data = requests.get(imageUrl)
+            data_type = magic.from_buffer(url_data.content, mime=True)
+            if data_type == 'image/jpeg':
+                pass
+            else:
+                messages.error(self.request, "invalid image url")
+                return self.form_invalid(form)
+
         return super().form_valid(form) 
     
     def test_func(self):
