@@ -1,101 +1,41 @@
 
-     
-{% if messages %}
- <!-- Navigation -->
- <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" style='color:black' href="{% url 'blog_home' %}">Home</a>
+        <a class="navbar-brand" href="{% url 'blog_home' %}">Home</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
         aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+            
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" style='color:black' href="{% url 'blog_new' %}">New post</a>
+                    <a class="nav-link" href="{% url 'blog_new' %}">New post</a>
                 </li>
             {%endif%}
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" style='color:black' href="{% url 'logout' %}">Logout</a>
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" style='color:black' href="{% url 'register_page' %}">SignIn / Register</a>
+                    <a class="nav-link" href="{% url 'register_page' %}">SignIn / Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style='color:black' href="{% url 'about_us' %}">About</a>
+                    <a class="nav-link" href="{% url 'about_us' %}">About</a>
                 </li>
             {% endif %}
 
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" style='color:black' href="{% url 'user_profile' request.user %}">{{request.user}}</a>
+                    <a class="nav-link" href="{% url 'user_profile' request.user %}">{{request.user}}</a>
                 </li>
             {% endif %}
-          </ul>
-      </div>
-  </div>
-</nav>
-
-    <br><br>
-    <div>
-        <div class="container-fluid">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                  {{message}}
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </div>
-            {% endfor %}
-            <hr>
+            </ul>
         </div>
-        <br>
-    </div> 
-
-{% else %}
-     <!-- Navigation -->
-     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'blog_home' %}">Home</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-            aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-              <ul class="navbar-nav ml-auto">
-                
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog_new' %}">New post</a>
-                    </li>
-                {%endif%}
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register_page' %}">SignIn / Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about_us' %}">About</a>
-                    </li>
-                {% endif %}
-
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'user_profile' request.user %}">{{request.user}}</a>
-                    </li>
-                {% endif %}
-              </ul>
-          </div>
-      </div>
-  </nav>
-  
-{% endif %}
+    </div>
+</nav>
