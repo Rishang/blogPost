@@ -13,4 +13,5 @@ db.sqlite3
 # virtual env
 .pipenv/
 .env*
+assets/
 
