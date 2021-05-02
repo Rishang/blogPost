@@ -114,8 +114,7 @@ variable "DJANGO_DEBUG_MODE" {
 
 # -------------------- S3 bucket  -------------------------
 
-variable "bucket_name" {
+variable "webapp_bucket" {
   type        =   string
-  description = "S3 bucket for ECS taks roles"
-  default     = "ecs-django-blog-app"
+  description = "S3 bucket for  webapp, ECS taks roles"
 }

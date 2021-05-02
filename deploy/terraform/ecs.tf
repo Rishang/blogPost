@@ -34,7 +34,7 @@ data "template_file" "cd_ecs_app" {
     DJANGO_DEBUG_MODE     = var.DJANGO_DEBUG_MODE
     
     # s3
-    AWS_STORAGE_BUCKET_NAME = var.bucket_name
+    AWS_STORAGE_BUCKET_NAME = var.webapp_bucket
   }
 }
 

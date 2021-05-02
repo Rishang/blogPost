@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "ecsBucket" {
-  bucket = var.bucket_name
+  bucket = var.webapp_bucket
 
   # force_destroy = true
   cors_rule {
