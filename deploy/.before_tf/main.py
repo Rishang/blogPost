@@ -1,6 +1,16 @@
 import logging
 import boto3
 from botocore.exceptions import ClientError
+import os
+
+account_id = os.environ.get("ACCOUNT_ID")
+tf_backent_name = os.environ.get("S3_TFSTATE_BACKEND")
+
+if not account_id:
+    raise EnvironmentError("ACCOUNT_ID, no account id specified")
+elif not tf_backent_name:
+    raise EnvironmentError("S3_TFSTATE_BACKEND, no tf_state backup bucket name found")
+
 
 # Code for AWS TERRAFORM S# BACKEND
 def create_bucket(bucket_name:str,bucket_owner_id:str,versioning=False, encrypt=False, region=None):
@@ -58,14 +68,11 @@ def create_bucket(bucket_name:str,bucket_owner_id:str,versioning=False, encrypt=
     return True
 
 
-
-
 # Output the bucket names
 # print('Existing buckets:')
 s3 = boto3.client('s3')
 response = s3.list_buckets()
 
-tf_backent_name="170770106047-terraform-tfstate"
 
 b=[]
 for buckets in response['Buckets']:
@@ -76,4 +83,9 @@ if tf_backent_name in b:
     print(f"\nbucket {tf_backent_name} Exists")
 else:
     print(f"creating {tf_backent_name}")
-    create_bucket(bucket_name=tf_backent_name,versioning=True,encrypt=True, bucket_owner_id="361352751215")
+    create_bucket(
+        bucket_name=f"{tf_backent_name}",
+        versioning=True,
+        encrypt=True,
+        bucket_owner_id=f"{account_id}"
+    )
