@@ -7,6 +7,7 @@ pipeline {
         ACCOUNT_ID = credentials('aws-account-id')
         ECR_URL    = "${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com"
         REPO_NAME  = "blogpost_backend"
+        S3_TFSTATE_BACKEND = "170770106047-terraform-tfstate"
 
         // docker
         NETWORK_NAME       =  "blogpost_web"
