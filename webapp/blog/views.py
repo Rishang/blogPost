@@ -27,6 +27,7 @@ from .unsplash import Unsplash
 
 # class VIEWS
 
+null_vals = ["", None]
 class tagList(ListView):
 
     template_name = 'blog/tag.html'
@@ -99,14 +100,15 @@ class postCreateView(LoginRequiredMixin, ValidPost, CreateView):
         # do only if no image is uploaded in article post
         imageUrl = self.request.POST.get('imageUrl') or None
         image = self.request.POST.get('image') or None
-        if imageUrl != '':
+        
+        if imageUrl not in null_vals:
             url_data = requests.get(imageUrl)
             data_type = magic.from_buffer(url_data.content, mime=True)
             if data_type == 'image/jpeg':
                 pass
             else:
                 raise ValidationError("invalid image url")
-        elif  image == '':
+        elif  image == None:
 
             d = Unsplash()
 
@@ -139,7 +141,8 @@ class postUpdateView(LoginRequiredMixin, UserPassesTestMixin, ValidPost, UpdateV
 
          # do only if no image is uploaded in article post
         imageUrl = self.request.POST.get('imageUrl') or None
-        if imageUrl != '':
+        
+        if imageUrl not in null_vals:
             url_data = requests.get(imageUrl)
             data_type = magic.from_buffer(url_data.content, mime=True)
             if data_type == 'image/jpeg':
