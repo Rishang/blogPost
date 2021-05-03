@@ -83,10 +83,10 @@ pipeline {
 
         stage('Deploy to AWS') {
             steps  {
-                dir("tf/.before_tf"){
+                dir("deploy/.before_tf"){
                     sh 'python3 main.py'
                 }
-                dir("tf/setup"){
+                dir("deploy/terraform"){
                     withCredentials([file(credentialsId: 'tfvars', variable: 'tfvars')]) 
                     {
                         sh 'cat $tfvars > terraform.tfvars'
@@ -110,7 +110,7 @@ pipeline {
                 // Removing dangling-container-images
                 sh 'docker rmi $(docker images --filter dangling=true -q) || echo No dangling images'
                 // remove tfvars
-               dir("tf/setup"){
+               dir("deploy/terraform"){
                    sh 'rm terraform.tfvars'
                }
             }
