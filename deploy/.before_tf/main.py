@@ -1,8 +1,19 @@
+"""
+This script will create s3 bucket on aws which can be used for storing tf states of terrafrom, initially
+
+following env vars are required to be set
+
+ACCOUNT_ID: your aws account id
+S3_TFSTATE_BACKEND: name you want to give to your s3 bucket
+"""
+
+
 import logging
 import boto3
 from botocore.exceptions import ClientError
 import os
 
+# require
 account_id = os.environ.get("ACCOUNT_ID")
 tf_backent_name = os.environ.get("S3_TFSTATE_BACKEND")
 
