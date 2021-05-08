@@ -59,8 +59,11 @@ pipeline {
                 sh 'docker-compose -f testing/docker-compose.yml kill'
             }
         }
-        
+         
         stage('Push to AWS ECR') {
+            when {
+                branch 'master'
+            }
             steps {
                 withCredentials([file(credentialsId: 'aws_credentials', variable: 'aws_credentials')]) 
                     {
@@ -82,6 +85,11 @@ pipeline {
         }
 
         stage('Deploy to AWS') {
+            
+            when {
+                branch 'master'
+            }
+            
             steps  {
                 dir("deploy/.before_tf"){
                     sh 'python3 main.py'
