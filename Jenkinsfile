@@ -1,7 +1,7 @@
 pipeline {
     agent any
     
-    echo 'getting enviroment vars'
+    // echo 'getting enviroment vars'
     environment  {
         // aws
         ACCOUNT_ID = credentials('aws-account-id')
@@ -19,7 +19,7 @@ pipeline {
             steps {
                 dir("webapp"){
                     
-                    // echo 'getting env dev file'
+                    echo 'getting env dev file'
                     withCredentials([file(credentialsId: 'env_dev', variable: 'env_dev')]) 
                         {
                             sh 'cat $env_dev > .env.dev'
