@@ -19,7 +19,7 @@ pipeline {
             steps {
                 dir("webapp"){
                     
-                    echo 'getting env dev file'
+                    // echo 'getting env dev file'
                     withCredentials([file(credentialsId: 'env_dev', variable: 'env_dev')]) 
                         {
                             sh 'cat $env_dev > .env.dev'
