@@ -1,5 +1,19 @@
 
-# terraform variables
+# django app deployment to aws by terraform
+
+## Required aws resource
+
+1. aws vpc (default vpc)
+2. ecsTaskExecution iam role
+
+## Recources created on aws by `terraform apply`
+
+1. RDS Database (postgres)
+2. S3 Bucket
+3. ECS cluster / service
+4. CloudWatch log group for ECS logs
+
+## Variables for configuring terrafrom deployment
 
 | variable | type | description |
 |----------|-----|---------------------|
@@ -11,7 +25,7 @@
 | ecs_iam_role_name   | string | IAM execution role for ecs
 | task_defiantion_family  | string | task defination family for ecs tasks
 | REPO_NAME   | string | ECR repo name
-| GIT_COMMIT   | string | Git commit version
+| GIT_COMMIT   | string | Git commit id
 | app_state  | string | stage of app, dev/prod
 | DATABASE  | string | database type (postgres)
 | DATABASE_PORT  | string | port for the database
