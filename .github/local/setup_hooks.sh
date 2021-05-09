@@ -1,4 +1,4 @@
 #!/usr/bin/sh
 
 GIT_PATH="../../.git"
-[[ -e $GIT_PATH ]] && mv hooks/* $GIT_PATH/hooks
+[[ -e $GIT_PATH ]] && cp hooks/* $GIT_PATH/hooks
