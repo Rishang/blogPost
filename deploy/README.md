@@ -36,5 +36,5 @@
 | DJNGO_ADMIN_EMAIL   | string | Configs for django app settings
 | DJNGO_ADMIN_PASSWORD   | string | Configs for django app settings
 | DJANGO_ALLOWED_HOST   | string | Configs for django app settings
-| DJANGO_DEBUG_MODE   | string | Configs for django app settings, 0 | False, 1 | True
+| DJANGO_DEBUG_MODE   | string | Configs for django app settings, ( 0 = False / 1 = True )
 | webapp_bucket   | string | S3 bucket for  webapp, ECS taks roles
