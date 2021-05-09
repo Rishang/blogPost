@@ -12,6 +12,7 @@
 2. S3 Bucket
 3. ECS cluster / service
 4. CloudWatch log group for ECS logs
+5. Application Load Balencer for ECS
 
 ## Variables for configuring terrafrom deployment
 
