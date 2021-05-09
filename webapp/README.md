@@ -2,6 +2,14 @@
 
 django blog app
 
+## Blog app
+
+This is blog writting web application, written in django in order to write and see others blogs and articles.
+
+The editor for writting blogs is markdown based editor, so you can write markdown for writting articles.
+
+The media condent is stored in local `media` folder, for `STAGE=PRODUCTION` configured as environment variable, media content gets stored at s3 bucket using `django-storages`
+
 ## For running app locally
 
 ### Step 1
@@ -15,6 +23,8 @@ Install requirements
 Create file `.env.local` at directory path `blogPost/webapp/`
 
 ### Inside `.env.local`
+
+You can copy `env.local.example` as `.env.local` for a quick start
 
     DJANGO_ALLOWED_HOST=*
     DJANGO_SECRET_KEY=        // random_secret_key
@@ -42,6 +52,8 @@ The `manage.py` file is stored at `blogPost/webapp` follow the below steps
 Create a `blogPost/webapp/.env.dev` file where we will keep all the config details for hosting the webapp.
 
 ### Inside `env.dev` file
+
+You can copy `env.dev.example` as `.env.dev` for a quick start
 
     DJANGO_ALLOWED_HOST=        // (ALLOWED HOST IP)
     DJANGO_SECRET_KEY=          // (DJANGO SETTINGS SECRET KEY)
