@@ -2,7 +2,14 @@
 
 set -ex
 
-pip install -r webapp/requirements.txt
-python3 webapp/manage.py collectstatic --noinput
-python3 webapp/manage.py makemigrations --noinput
-python3 webapp/manage.py migrate --noinput
+pip_bin_dir=`find . -type f -name "pip3" | grep -oE ".*/"`
+
+if [[ $pip_bin_dir ]];then
+    source $pip_bin_dir/activate
+    pip install -r webapp/requirements.txt
+    python3 webapp/manage.py collectstatic --noinput
+    python3 webapp/manage.py makemigrations --noinput
+    python3 webapp/manage.py migrate --noinput
+else
+    echo "virtual pip env not setup"
+fi
