@@ -19,5 +19,5 @@ def test():
     print('sucess')
     driver.quit()
 
-if requests.get('http://chrome_browser:4444').status_code == 200:
-    test()
+
+test()
