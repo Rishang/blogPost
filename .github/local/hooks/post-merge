@@ -2,14 +2,16 @@
 
 set -ex
 
-pip_bin_dir=`find . -type f -name "pip3" | grep -oE ".*/"`
+project_name="blogPost"
+project_dir=`pwd | grep -oE ".+${project_name}/"`
+pip_bin_dir=`find ${project_dir} -type f -name "pip3" | grep -oE ".*/"`
 
 if [[ $pip_bin_dir ]];then
     source $pip_bin_dir/activate
-    pip install -r webapp/requirements.txt
-    python3 webapp/manage.py collectstatic --noinput
-    python3 webapp/manage.py makemigrations --noinput
-    python3 webapp/manage.py migrate --noinput
+    pip install -r ${project_dir}/webapp/requirements.txt
+    python3 ${project_dir}/webapp/manage.py collectstatic --noinput
+    python3 ${project_dir}/webapp/manage.py makemigrations --noinput
+    python3 ${project_dir}/webapp/manage.py migrate --noinput
 else
     echo "virtual pip env not setup"
 fi
