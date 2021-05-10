@@ -1,0 +1,34 @@
+# rds
+
+rds_db_name="blog"
+rds_db_username="admin"
+rds_db_password="password"
+
+# ----- temp -------
+REPO_NAME="blogpost_backend"
+
+# -------- S3 -----------
+
+webapp_bucket="media-django-blog-app"
+
+
+# ---- ecs task defination ----
+
+app_state = "PRODUCTION"
+
+DJANGO_SECRET_KEY     = "SECRET"
+DJANGO_ADMIN_USERNAME = "admin"
+DJNGO_ADMIN_EMAIL     = "admin@admin.com"
+DJNGO_ADMIN_PASSWORD  = "password"
+DJANGO_ALLOWED_HOST   = "*"
+DJANGO_DEBUG_MODE     = "0"
+
+DATABASE_ENGINE = "django.db.backends.postgresql"
+
+# ---- ecs -----
+ 
+app_cluster = "blog_app"
+task_defiantion_family = "blog_app"
+
+# git
+GIT_COMMIT = "1"
