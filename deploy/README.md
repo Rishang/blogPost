@@ -38,3 +38,18 @@
 | DJANGO_ALLOWED_HOST   | string | Configs for django app settings
 | DJANGO_DEBUG_MODE   | string | Configs for django app settings, ( 0 = False / 1 = True )
 | webapp_bucket   | string | S3 bucket for  webapp, ECS taks roles
+
+
+## secret vars
+
+The secret var file named as `terraform.tfvars` need to be defined for deployment see [Example](https://github.com/Rishang/blogPost/blob/master/deploy/terraform/tfvars.example) for input references
+
+
+## deploy
+
+For deployment inside `terraform` directory run
+
+    terraform init
+    terraform apply
+
+you can use `terraform plan` to see which resources will get created
