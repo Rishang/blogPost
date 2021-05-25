@@ -14,7 +14,7 @@ function _django_config {
 
 }
 
-if [ "$DATABASE" = "postgres" ]
+if [ "$DATABASE" == "postgres" ]
 then
 
   echo "Waiting for postgres..."
