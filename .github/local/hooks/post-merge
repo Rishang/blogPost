@@ -1,9 +1,8 @@
 #!/bin/sh
-
 set -ex
 
 project_name="blogPost"
-project_dir=`pwd | grep -oE ".+${project_name}/"`
+project_dir=`pwd | grep -oE ".+${project_name}"`
 pip_bin_dir=`find ${project_dir} -type f -name "pip3" | grep -oE ".*/"`
 
 if [[ $pip_bin_dir ]];then

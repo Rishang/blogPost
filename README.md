@@ -31,3 +31,13 @@ Initially you have to setup jenkins credentials required running the pipeline
 - Done the pipeline will automatically start
 
 - For continuous pipeline you can configure sheduled fetch updates from the github repo
+
+## Pipeline workflow diagram
+
+### Jenkins pipeline diagram
+
+![cd image](https://raw.githubusercontent.com/Rishang/blogPost/master/.github/images/ARCH_CICD.png)
+
+### Terraform deployment diagram
+
+![cd image](https://raw.githubusercontent.com/Rishang/blogPost/master/.github/images/ARCH_CD.png)
