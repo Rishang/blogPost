@@ -81,9 +81,6 @@
                 "name": "DJANGO_DEBUG_MODE",
                 "value": "${DJANGO_DEBUG_MODE}"
             }
-        ],
-        "command": [
-            "gunicorn", "django_blog.wsgi:application", "--bind", "0.0.0.0:${RUN_PORT}"
         ]
     }
 ]
