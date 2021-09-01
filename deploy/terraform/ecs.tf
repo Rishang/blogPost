@@ -6,7 +6,7 @@ data "template_file" "cd_ecs_app" {
 
   vars = {
     # django container vars
-    app_port       = 80
+    RUN_PORT       = 80
     logs           = aws_cloudwatch_log_group.ECS_APP.name
     image          = "${data.aws_ecr_repository.ECS_APP.repository_url}:${var.GIT_COMMIT}"
     container_name = "backend"
