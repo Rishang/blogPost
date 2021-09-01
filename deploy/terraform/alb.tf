@@ -1,6 +1,6 @@
 
 
-resource "aws_alb_target_group" "webapp" {
+resource "aws_lb_target_group" "webapp" {
   name        = "backend"
   port        = 80
   protocol    = "HTTP"
@@ -30,13 +30,13 @@ resource "aws_alb" "main" {
 }
 
 # Redirect all traffic from the ALB to the target group
-resource "aws_alb_listener" "front_end" {
+resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_alb.main.id
   port              = 80
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = aws_alb_target_group.webapp.id
+    target_group_arn = aws_lb_target_group.webapp.id
     type             = "forward"
   }
 }
