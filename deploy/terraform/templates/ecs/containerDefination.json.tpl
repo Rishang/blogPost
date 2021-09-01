@@ -12,9 +12,9 @@
 
         "portMappings": [
             {
-                "hostPort": ${app_port},
+                "hostPort": ${RUN_PORT},
                 "protocol": "tcp",
-                "containerPort": ${app_port}
+                "containerPort": ${RUN_PORT}
             }
         ],
         "memoryReservation": 200,
