@@ -12,7 +12,7 @@ requests
 asyncio
 aiohttp
 gunicorn
-
+tzdata
 boto3
 django-storages
 python-magic
