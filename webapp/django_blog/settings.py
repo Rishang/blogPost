@@ -52,6 +52,7 @@ DEBUG = bool(int(env.bool("DJANGO_DEBUG_MODE")))
 
 ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOST").split(',')
 
+CSRF_TRUSTED_ORIGINS = ['https://*.preview.app.github.dev']
 
 # Application definition
 
